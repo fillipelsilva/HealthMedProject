@@ -1,0 +1,34 @@
+version: '3.4'
+
+services:
+  health.api:
+    image: ${DOCKER_REGISTRY-}healthapi
+    container_name: health.api
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    build:
+      context: .
+      dockerfile: Health.Api/Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    networks:
+      - health_net
+  
+  rabbitmq:
+    container_name: rabbit
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbitmquser
+      RABBITMQ_DEFAULT_PASS: rabbitmqpassword
+    networks:
+      - health_net
+
+networks:
+  health_net:
+    driver: bridge
+

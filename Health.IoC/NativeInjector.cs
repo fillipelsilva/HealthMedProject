@@ -1,0 +1,33 @@
+﻿using HealthMed.Application.UseCases.MedicoUseCase;
+using HealthMed.Application.UseCases.PacienteUseCase;
+using HealthMed.Domain.Repositories;
+using HealthMed.Infraestructure.Repositories;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace Health.IoC
+{
+    public static class NativeInjector
+    {
+        public static void RegisterServices(IServiceCollection service)
+        {
+            #region Services
+            service.AddScoped<AdicionarMedicoUseCase>();
+            service.AddScoped<AtualizarMedicoUseCase>();
+            service.AddScoped<RemoverMedicoUseCase>();
+            service.AddScoped<ObterMedicoPorIdUseCase>();
+            service.AddScoped<AdicionarPacienteUseCase>();
+            service.AddScoped<AtualizarPacienteUseCase>();
+            service.AddScoped<RemoverPacienteUseCase>();
+            service.AddScoped<ObterPacientePorIdUseCase>();
+            #endregion
+            #region Repositories
+            service.AddScoped<IPacienteRepository, PacienteRepository>();
+            service.AddScoped<IMedicoRepository, MedicoRepository>();
+            service.AddScoped<IConsultaRepository, ConsultaRepository>();
+            service.AddScoped<IHorarioConsultaRepository, HorarioConsultaRepository>();
+            service.AddScoped<IAgendaDiaRepository, AgendaDiaRepository>();
+            service.AddScoped<IAgendaRepository, AgendaRepository>();
+            #endregion
+        }
+    }
+}
