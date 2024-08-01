@@ -1,11 +1,6 @@
 ﻿using HealthMed.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HealthMed.Infraestructure.Data
 {
@@ -47,19 +42,19 @@ namespace HealthMed.Infraestructure.Data
                 .HasOne(c => c.Medico)
                 .WithMany()
                 .HasForeignKey(c => c.MedicoId)
-                .OnDelete(DeleteBehavior.Restrict); // Ou NoAction
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Consulta>()
                 .HasOne(c => c.Paciente)
                 .WithMany(p => p.Consultas)
                 .HasForeignKey(c => c.PacienteId)
-                .OnDelete(DeleteBehavior.Restrict); // Ou NoAction
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<AgendaDia>()
                 .HasOne(ad => ad.Agenda)
                 .WithMany(a => a.Dias)
                 .HasForeignKey(ad => ad.AgendaId)
-                .OnDelete(DeleteBehavior.Restrict); // Ou NoAction
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

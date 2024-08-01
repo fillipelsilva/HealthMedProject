@@ -1,15 +1,15 @@
 version: '3.4'
 
 services:
-  health.api:
-    image: ${DOCKER_REGISTRY-}healthapi
+  health-med.api:
+    image: ${DOCKER_REGISTRY-}healthmedapi
     container_name: health.api
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     build:
       context: .
-      dockerfile: Health.Api/Dockerfile
+      dockerfile: Health-Med/Dockerfile
     ports:
       - "8080:8080"
       - "8081:8081"
@@ -31,4 +31,3 @@ services:
 networks:
   health_net:
     driver: bridge
-
