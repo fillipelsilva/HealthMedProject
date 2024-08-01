@@ -9,6 +9,9 @@ public class AgendaConfiguration : IEntityTypeConfiguration<Agenda>
         builder.HasKey(c => c.Id);
         builder.ToTable("Agendas");
 
+        builder.Property(a => a.Nome)
+            .IsRequired();
+
         builder.HasOne(a => a.Medico)
             .WithMany(m => m.Agendas)
             .HasForeignKey(a => a.MedicoId);

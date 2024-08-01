@@ -41,20 +41,6 @@ namespace Health.Api.Controllers
             }
         }
 
-        [HttpPut("AtualizarAgenda")]
-        public async Task<IActionResult> AtualizarAgenda([FromBody] AlterarAgendaDTO agenda, [FromServices] AtualizarAgendaUseCase atualizarAgendaUseCase)
-        {
-            try
-            {
-                await atualizarAgendaUseCase.Execute(agenda);
-                return Ok("Agenda atualizada com sucesso!");
-            }
-            catch
-            {
-                return StatusCode(500, new { ErrorMessage = "Internal Server Error" });
-            }
-        }
-
         [HttpDelete("RemoverAgenda/{id}")]
         public async Task<IActionResult> RemoverAgenda(Guid id, [FromServices] RemoverAgendaUseCase removerAgendaUseCase)
         {

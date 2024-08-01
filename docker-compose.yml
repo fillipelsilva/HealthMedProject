@@ -31,3 +31,7 @@ services:
 networks:
   health_net:
     driver: bridge
+
+volumes:
+    sqlserver_data:
+      driver: local     

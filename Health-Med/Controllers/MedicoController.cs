@@ -9,6 +9,21 @@ namespace Health.Api.Controllers
     [Route("api/[controller]")]
     public class MedicoController : ControllerBase
     {
+        [HttpGet("ObterTodos")]
+        public async Task<IActionResult> ObterTodos([FromServices] ObterTodosMedicosUseCase obterTodosMedicosUseCase)
+        {
+            try
+            {
+                var medicos = await obterTodosMedicosUseCase.Execute();
+                if (medicos is null) return NotFound();
+
+                return Ok(new { medicos });
+            }
+            catch
+            {
+                return StatusCode(500, new { ErrorMessage = "Internal Server Error" });
+            }
+        }
         [HttpGet("ObterMedicoPorId/{id}")]
         public async Task<IActionResult> ObterMedicoPorId(Guid id, [FromServices] ObterMedicoPorIdUseCase obterMedicoPorIdUseCase)
         {

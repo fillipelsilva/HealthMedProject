@@ -1,4 +1,5 @@
-﻿using HealthMed.Application.UseCases.MedicoUseCase;
+﻿using HealthMed.Application.UseCases.AgendaUseCase;
+using HealthMed.Application.UseCases.MedicoUseCase;
 using HealthMed.Application.UseCases.PacienteUseCase;
 using HealthMed.Domain.Repositories;
 using HealthMed.Infraestructure.Repositories;
@@ -12,9 +13,11 @@ namespace Health.IoC
         {
             #region Services
             service.AddScoped<AdicionarMedicoUseCase>();
+            service.AddScoped<AdicionarAgendaUseCase>();
             service.AddScoped<AtualizarMedicoUseCase>();
             service.AddScoped<RemoverMedicoUseCase>();
             service.AddScoped<ObterMedicoPorIdUseCase>();
+            service.AddScoped<ObterTodosMedicosUseCase>();
             service.AddScoped<AdicionarPacienteUseCase>();
             service.AddScoped<AtualizarPacienteUseCase>();
             service.AddScoped<RemoverPacienteUseCase>();

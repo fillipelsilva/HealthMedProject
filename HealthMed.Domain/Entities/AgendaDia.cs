@@ -5,11 +5,11 @@ namespace HealthMed.Domain.Entities
     public class AgendaDia : EntityBase
     {
         public DateTime Data { get; set; }
-
-        public List<HorarioConsulta>? Horarios { get; set; }
-
         public Guid AgendaId { get; set; }
         public Agenda Agenda { get; set; }
+
+        //EF REL.
+        public List<HorarioConsulta>? Horarios { get; set; }
         public List<Consulta> Consultas { get; set; }
 
         public AgendaDia(DateTime data)

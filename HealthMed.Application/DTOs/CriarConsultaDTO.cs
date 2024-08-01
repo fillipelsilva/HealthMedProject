@@ -7,10 +7,14 @@ using System.Threading.Tasks;
 
 namespace HealthMed.Application.DTOs
 {
-    public class CriarAgendaDiaDTO
+    public class CriarConsultaDTO
     {
-        public DateTime Data { get; set; }
-        public List<CriarHorarioConsultaDTO>? Horarios { get; set; }
+        public Guid PacienteId { get; set; }
+
+        public Guid MedicoId { get; set; }
+
         public Guid AgendaDiaId { get; set; }
+
+        public TimeSpan Horario { get; set; }
     }
 }

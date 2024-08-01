@@ -8,15 +8,16 @@ namespace HealthMed.Domain.Entities
 
         public Guid MedicoId { get; set; }
         public Medico Medico { get; set; }
+        public string Nome { get; set; }
         public Agenda()
         {
                 
         }
 
-        public Agenda(List<AgendaDia> dias, Guid medicoId)
+        public Agenda(Guid medicoId, string nome)
         {
-            Dias = dias;
             MedicoId = medicoId;
+            Nome = nome;    
         }
 
         public void AdicionarHorario(DateTime data, TimeSpan horario)

@@ -13,17 +13,15 @@ namespace HealthMed.Application.UseCases.AgendaUseCase
     public class AdicionarAgendaUseCase
     {
         private readonly IAgendaRepository _agendaRepository;
-        private readonly IMapper _mapper;
 
-        public AdicionarAgendaUseCase(IAgendaRepository agendaRepository, IMapper mapper)
+        public AdicionarAgendaUseCase(IAgendaRepository agendaRepository)
         {
             _agendaRepository = agendaRepository;
-            _mapper = mapper;
         }
 
         public async Task<bool> Execute(CriarAgendaDTO agendaDTO)
         {
-            Agenda? agenda = new(_mapper.Map<List<AgendaDia>>(agendaDTO.Dias), agendaDTO.MedicoId);
+            Agenda? agenda = new(agendaDTO.MedicoId, agendaDTO.Nome);
             await _agendaRepository.Adicionar(agenda);
             return true;
         }
