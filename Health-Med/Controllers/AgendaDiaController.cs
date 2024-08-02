@@ -26,6 +26,6 @@ namespace Health.Api.Controllers
             {
                 return StatusCode(500, new { ErrorMessage = "Internal Server Error" });
             }
-        }        
+        }      
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -41,6 +42,17 @@ namespace HealthMed.Infraestructure.Repositories
         public async Task<List<T>> ObterTodos()
         {
             return await _dbSet.ToListAsync();
+        }
+
+        public async Task<T?> ObterPorEntidadeRelacionada<TRelatedEntity>(
+        Guid relatedEntityId,
+        Expression<Func<T, IEnumerable<TRelatedEntity>>> includeExpression,
+        Expression<Func<TRelatedEntity, bool>> relatedEntityPredicate
+    ) where TRelatedEntity : class
+        {
+            return await _dbSet
+                .Include(includeExpression)
+                .FirstOrDefaultAsync(e => includeExpression.Compile().Invoke(e).Any(relatedEntityPredicate.Compile()));
         }
 
         public async Task Remover(Guid id)

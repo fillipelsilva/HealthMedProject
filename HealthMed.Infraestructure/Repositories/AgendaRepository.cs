@@ -1,6 +1,7 @@
 ﻿using HealthMed.Domain.Entities;
 using HealthMed.Domain.Repositories;
 using HealthMed.Infraestructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,16 @@ namespace HealthMed.Infraestructure.Repositories
     {
         public AgendaRepository(AppDbContext Context) : base(Context)
         {
+        }
+
+        public async Task<List<Agenda>?> ObterPorMedicoId(Guid medicoId)
+        {
+            return _context.Agendas
+                .Include(x => x.Medico)
+                .Include(a => a.Dias)
+                .ThenInclude(d => d.Horarios.Where(x => x.Disponivel))
+                .Where(a => a.MedicoId == medicoId)
+                .ToList();
         }
     }
 }

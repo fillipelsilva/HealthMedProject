@@ -54,5 +54,21 @@ namespace Health.Api.Controllers
                 return StatusCode(500, new { ErrorMessage = "Internal Server Error" });
             }
         }
+
+        [HttpGet("ObterAgendasPorMedicoId")]
+        public async Task<IActionResult> ObterAgendasPorMedicoId(Guid id, [FromServices] ObterAgendaPorMedicoIdUseCase obterAgendaPorIdUseCase)
+        {
+            try
+            {
+                var agenda = await obterAgendaPorIdUseCase.Execute(id);
+                if (agenda is null) return NotFound();
+
+                return Ok(new { agenda });
+            }
+            catch
+            {
+                return StatusCode(500, new { ErrorMessage = "Internal Server Error" });
+            }
+        }
     }
 }

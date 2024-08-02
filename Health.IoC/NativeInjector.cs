@@ -1,4 +1,7 @@
-﻿using HealthMed.Application.UseCases.AgendaUseCase;
+﻿using HealthMed.Application.Services;
+using HealthMed.Application.UseCases.AgendaDiaUseCase;
+using HealthMed.Application.UseCases.AgendaUseCase;
+using HealthMed.Application.UseCases.ConsultaUseCase;
 using HealthMed.Application.UseCases.MedicoUseCase;
 using HealthMed.Application.UseCases.PacienteUseCase;
 using HealthMed.Domain.Repositories;
@@ -14,14 +17,19 @@ namespace Health.IoC
             #region Services
             service.AddScoped<AdicionarMedicoUseCase>();
             service.AddScoped<AdicionarAgendaUseCase>();
+            service.AddScoped<ObterAgendaPorMedicoIdUseCase>();
             service.AddScoped<AtualizarMedicoUseCase>();
             service.AddScoped<RemoverMedicoUseCase>();
             service.AddScoped<ObterMedicoPorIdUseCase>();
+            service.AddScoped<ObterConsultaPorIdUseCase>();
             service.AddScoped<ObterTodosMedicosUseCase>();
+            service.AddScoped<MarcarConsultaUseCase>();
             service.AddScoped<AdicionarPacienteUseCase>();
             service.AddScoped<AtualizarPacienteUseCase>();
             service.AddScoped<RemoverPacienteUseCase>();
+            service.AddScoped<ObterAgendaDiaPorIdUseCase>();
             service.AddScoped<ObterPacientePorIdUseCase>();
+            service.AddScoped<IMessagingService, MessagingService>();
             #endregion
             #region Repositories
             service.AddScoped<IPacienteRepository, PacienteRepository>();

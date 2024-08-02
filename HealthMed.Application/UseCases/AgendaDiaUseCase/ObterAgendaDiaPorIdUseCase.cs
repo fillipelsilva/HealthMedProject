@@ -1,4 +1,6 @@
-﻿using HealthMed.Domain.Entities;
+﻿using AutoMapper;
+using HealthMed.Application.DTOs;
+using HealthMed.Domain.Entities;
 using HealthMed.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,15 +13,17 @@ namespace HealthMed.Application.UseCases.AgendaDiaUseCase
     public class ObterAgendaDiaPorIdUseCase
     {
         private readonly IAgendaDiaRepository _agendaDiaRepository;
+        private readonly IMapper _mapper;
 
-        public ObterAgendaDiaPorIdUseCase(IAgendaDiaRepository agendaDiaRepository)
+        public ObterAgendaDiaPorIdUseCase(IAgendaDiaRepository agendaDiaRepository, IMapper mapper)
         {
             _agendaDiaRepository = agendaDiaRepository;
+            _mapper = mapper;
         }
 
-        public async Task<AgendaDia?> Execute(Guid id)
+        public async Task<RecuperarAgendaDiaDTO?> Execute(Guid id)
         {
-            AgendaDia? agendaDia = await _agendaDiaRepository.ObterPorId(id);
+            RecuperarAgendaDiaDTO? agendaDia = _mapper.Map<RecuperarAgendaDiaDTO>(await _agendaDiaRepository.ObterPorIdPeloMedico(id));
 
             return agendaDia;
         }
