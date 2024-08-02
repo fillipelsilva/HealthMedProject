@@ -84,12 +84,12 @@ namespace Health.Api.Controllers
             }
         }
 
-        [HttpPost("authenticate"), AllowAnonymous]
-        public async Task<IActionResult> Authenticate([FromBody] AutenticarMedicoDTO autenticarMedicoDto, [FromServices] AutenticarMedicoUseCase autenticarMedicoUseCase)
+           [HttpPost("authenticate"), AllowAnonymous]
+        public async Task<IActionResult> Authenticate([FromBody] AutenticarPacienteDTO autenticarPacienteDto, [FromServices] AutenticarPacienteUseCase autenticarPacienteUseCase)
         {
             try
             {
-                return Ok(await autenticarMedicoUseCase.Execute(autenticarMedicoDto));
+                return Ok(await autenticarPacienteUseCase.Execute(autenticarPacienteDto));
             }
             catch (ArgumentException e)
             {
