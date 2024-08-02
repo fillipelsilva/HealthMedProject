@@ -7,6 +7,13 @@
             Agendas = new List<Agenda>();
         }
 
+        public Medico(string email, string password)
+        {
+            Agendas = new List<Agenda>();
+            Email = email;
+            Password = password;
+        }
+
         public Medico(string nome, string cPF, string cRM, string email, string password)
         {
             Nome = nome;

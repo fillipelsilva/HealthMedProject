@@ -1,6 +1,8 @@
 using HealthMed.Application.DTOs;
+using HealthMed.Application.UseCases.MedicoUseCase;
 using HealthMed.Application.UseCases.PacienteUseCase;
 using HealthMed.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Health.Api.Controllers
@@ -61,6 +63,37 @@ namespace Health.Api.Controllers
             {
                 await removerPacienteUseCase.Execute(id);
                 return Ok("Paciente removido com sucesso!");
+            }
+            catch
+            {
+                return StatusCode(500, new { ErrorMessage = "Internal Server Error" });
+            }
+        }     
+
+        [HttpDelete("RemoverMedico/{id}")]
+        public async Task<IActionResult> RemoverMedico(Guid id, [FromServices] RemoverMedicoUseCase removerMedicoUseCase)
+        {
+            try
+            {
+                await removerMedicoUseCase.Execute(id);
+                return Ok("Médico removido com sucesso!");
+            }
+            catch
+            {
+                return StatusCode(500, new { ErrorMessage = "Internal Server Error" });
+            }
+        }
+
+           [HttpPost("authenticate"), AllowAnonymous]
+        public async Task<IActionResult> Authenticate([FromBody] AutenticarPacienteDTO autenticarPacienteDto, [FromServices] AutenticarPacienteUseCase autenticarPacienteUseCase)
+        {
+            try
+            {
+                return Ok(await autenticarPacienteUseCase.Execute(autenticarPacienteDto));
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(new { e.Message });
             }
             catch
             {
