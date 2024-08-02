@@ -1,5 +1,7 @@
 ﻿using FluentValidation.Results;
 using HealthMed.Domain.Validations;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace HealthMed.Domain.Entities
 {
@@ -10,13 +12,22 @@ namespace HealthMed.Domain.Entities
             Consultas = new List<Consulta>();
         }
 
+        public Paciente(string email, string password)
+        {
+            Email = email;
+            Password = EncryptPassword(password);
+            Nome = string.Empty;
+            CPF = string.Empty;
+            Consultas = new List<Consulta>();
+        }
+
         public Paciente(string nome, string cPF, string email, string password)
         {
             Nome = nome;
             CPF = cPF;
             Consultas = new List<Consulta>();
             Email = email;
-            Password = password;
+            Password = EncryptPassword(password);
         }
 
         public string Nome { get; set; } = string.Empty;
@@ -37,7 +48,7 @@ namespace HealthMed.Domain.Entities
         }
         public void AdicionarPassword(string password)
         {
-            Password = password;
+            Password = EncryptPassword(password);
         }
 
         public void AlterarPassword(string plainTextPassword)
@@ -50,5 +61,20 @@ namespace HealthMed.Domain.Entities
             ValidationResult = new PacienteValidation().Validate(this);
             return ValidationResult;
         }
+        private string EncryptPassword(string password)
+        {
+            HashAlgorithm sha = new SHA1CryptoServiceProvider();
+
+            byte[] encryptedPassword = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (var caracter in encryptedPassword)
+            {
+                stringBuilder.Append(caracter.ToString("X2"));
+            }
+
+            return stringBuilder.ToString();
+        }
+
     }
 }

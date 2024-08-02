@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,5 +52,84 @@ namespace HealthMed.Infraestructure.Repositories
 
             await _context.SaveChangesAsync();
         }
+
+        #region 'Methods: Search'
+
+        public T Find(params object[] Keys)
+        {
+            try
+            {
+                return _dbSet.Find(Keys);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public T Find(Expression<Func<T, bool>> where)
+        {
+            try
+            {
+                return _dbSet.AsNoTracking().FirstOrDefault(where);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public T Find(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, object> includes)
+        {
+            try
+            {
+                IQueryable<T> _query = _dbSet;
+
+                if (includes != null)
+                    _query = includes(_query) as IQueryable<T>;
+
+                return _query.SingleOrDefault(predicate);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public IQueryable<T> Query(Expression<Func<T, bool>> where)
+        {
+            try
+            {
+                return _dbSet.Where(where);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        //Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include
+        public IQueryable<T> Query(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, object> includes)
+        {
+            try
+            {
+                IQueryable<T> _query = _dbSet;
+
+                if (includes != null)
+                    _query = includes(_query) as IQueryable<T>;
+
+                return _query.Where(predicate).AsQueryable();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        #endregion
     }
 }
