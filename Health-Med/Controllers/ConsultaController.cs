@@ -42,6 +42,20 @@ namespace Health.Api.Controllers
             }
         }
 
+        [HttpPost("EfetivarConsulta")]
+        public async Task<IActionResult> EfetivarConsulta([FromBody] CriacaoConsultaDTO consulta, [FromServices] EfetivarConsultaUseCase marcarConsultaUseCase)
+        {
+            try
+            {
+                await marcarConsultaUseCase.Execute(consulta);
+                return Ok();
+            }
+            catch
+            {
+                return StatusCode(500, new { ErrorMessage = "Internal Server Error" });
+            }
+        }
+
         [HttpDelete("RemoverConsulta/{id}")]
         public async Task<IActionResult> RemoverAgenda(Guid id, [FromServices] RemoverConsultaUseCase removerConsultaUseCase)
         {

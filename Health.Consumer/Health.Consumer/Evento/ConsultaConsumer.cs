@@ -2,6 +2,7 @@
 using HealthMed.Domain.Repositories;
 using HealthMed.Infraestructure.Data;
 using MassTransit;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,21 +13,48 @@ namespace Health.Consumer.Evento;
 public class ConsultaConsumer : IConsumer<Consulta>
 {
     private readonly IConsultaRepository _consultaRepository;
+    private readonly HttpClient _httpClient;
 
-    public ConsultaConsumer(IConsultaRepository consultaRepository)
+    public ConsultaConsumer(IConsultaRepository consultaRepository, HttpClient httpClient)
     {
         _consultaRepository = consultaRepository;
+        _httpClient = httpClient;
     }
 
-    public Task Consume(ConsumeContext<Consulta> context)
+    public async Task Consume(ConsumeContext<Consulta> context)
     {
         var ctx = new AppDbContext();
 
         var consulta = _consultaRepository.Find(x => x.MedicoId == context.Message.MedicoId && x.Horario == context.Message.Horario);
 
-        Console.WriteLine(context.Message.Horario);
-        Console.WriteLine(consulta.Medico.Nome);
-        return Task.CompletedTask;
+        var apiUrl = "https://localhost:7033/api/Consulta/EfetivarConsulta";
+        string json = JsonConvert.SerializeObject(context.Message);
+        using (var httpClient = new HttpClient())
+        {
+            // Create a StringContent object from the JSON message
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            try
+            {
+                // Send the message via POST request
+                var response = await httpClient.PostAsync(apiUrl, content);
+
+                // Check if the request was successful
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Message sent successfully");
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to send message. Status code: {response.StatusCode}");
+                    Console.WriteLine($"Response: {await response.Content.ReadAsStringAsync()}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+        }
     }
 }
 

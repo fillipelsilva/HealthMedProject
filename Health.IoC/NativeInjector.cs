@@ -20,6 +20,7 @@ namespace Health.IoC
             service.AddScoped<AdicionarAgendaUseCase>();
             service.AddScoped<ObterAgendaPorMedicoIdUseCase>();
             service.AddScoped<AtualizarMedicoUseCase>();
+            service.AddScoped<EfetivarConsultaUseCase>();
             service.AddScoped<RemoverMedicoUseCase>();
             service.AddScoped<RemoverAgendaUseCase>();
             service.AddScoped<ObterHorarioConsultaPorIdUseCase>();
