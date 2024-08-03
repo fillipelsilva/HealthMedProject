@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HealthMed.Application.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace HealthMed.Application.Services
 {
     public interface IMessagingService
     {
-        void SendMessage(string queueName, string message);
+        Task SendMessage(CriacaoConsultaDTO consultaDTO);
         void ReceiveMessage(string queueName);
     }
 }

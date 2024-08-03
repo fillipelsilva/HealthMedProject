@@ -25,7 +25,7 @@ namespace HealthMed.Application.UseCases.ConsultaUseCase
 
         public async Task Execute(CriacaoConsultaDTO consultaDTO)
         {
-            _messagingService.SendMessage("marcar_consulta_queue", JsonConvert.SerializeObject(consultaDTO));
+            await _messagingService.SendMessage(consultaDTO);
         }
     }
 }

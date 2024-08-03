@@ -5,6 +5,7 @@ using Health.IoC;
 using Microsoft.EntityFrameworkCore;
 using HealthMed.Application.AutoMapperSetup;
 using FluentValidation.AspNetCore;
+using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,17 @@ builder.Services.AddDbContext<AppDbContext>(opts =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var configuration = builder.Configuration;
+var conexao = configuration.GetSection("MassTransitAzure")["Conexao"] ?? string.Empty;
+
+builder.Services.AddMassTransit((x =>
+{
+    x.UsingAzureServiceBus((xcontext, cfg) =>
+    {
+        cfg.Host(conexao);
+    });
+}));
 
 var app = builder.Build();
 

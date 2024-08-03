@@ -24,6 +24,7 @@ namespace HealthMed.Application.AutoMapperSetup
             CreateMap<PacienteDTO, Paciente>();
             CreateMap<MedicoDTO, Medico>();
             CreateMap<ConsultaDTO, Consulta>();
+            CreateMap<CriacaoConsultaDTO, Consulta>();
 
             #endregion
 
