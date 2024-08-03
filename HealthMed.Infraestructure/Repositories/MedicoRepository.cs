@@ -1,6 +1,7 @@
 ﻿using HealthMed.Domain.Entities;
 using HealthMed.Domain.Repositories;
 using HealthMed.Infraestructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,15 @@ namespace HealthMed.Infraestructure.Repositories
     {
         public MedicoRepository(AppDbContext Context) : base(Context)
         {
+        }
+
+        public async Task<List<Medico>> ObterTodosMedicosComAgenda()
+        {
+            return _context.Medicos
+                .Include(x => x.Agendas)
+                .ThenInclude(x => x.Dias)
+                .ThenInclude(x => x.Horarios)
+                .ToList();
         }
     }
 }
