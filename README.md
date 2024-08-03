@@ -37,7 +37,7 @@ ________________________________________________________________________________
 * ASP.NET Core;
 * SQLSERVER;
 * Service Bus
-* Function Azure
+* Minimal API Azure
 __________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 
 ## 🥋 Skills Desenvolvidas:
@@ -131,7 +131,8 @@ A estrutura para o desenvolvimento foi baseada e implementada considerando os pr
 - Infrastructure;
 - Application;
 - API;
-- Testes.
+- Testes;
+- Consumer
 
 ### Persistência dos Dados:
 O banco de dados escolhido foi o SQL Server, por ser um banco relacional e garantir os princípios ACID.
