@@ -36,7 +36,6 @@ ________________________________________________________________________________
 * .NET 7;
 * ASP.NET Core;
 * SQLSERVER;
-
 __________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 
 ## 🥋 Skills Desenvolvidas:
@@ -44,8 +43,8 @@ ________________________________________________________________________________
 * Trabalho em Equipe;
 * Networking;
 * Muito conhecimento técnico.
-
 __________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
 
 ## ⚙️ Levantamento de Requisitos e Critérios de Aceite:
 
@@ -140,7 +139,7 @@ O padrão utilizado é pensado nos testes unitários, testes de integração e r
 
 ### Build e Execução do Projeto:
 Para executar esses projetos você precisa seguir as etapas abaixo:
-- Acessar o repositório do projeto através do link: https://github.com/PedroAbreuHS/Health-Med;
+- Acessar o repositório do projeto através do link: https://github.com/fillipelsilva/HealthMedProject;
 - Baixar o zip do projeto ou fazer um fork do mesmo;
 - Abrir o projeto, preferencialmente, na IDE Visual Studio considerando que facilitará para a execução;
 - Configurar a api como startup project;
