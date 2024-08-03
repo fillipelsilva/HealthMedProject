@@ -1,4 +1,6 @@
-﻿using HealthMed.Domain.Entities;
+﻿using AutoMapper;
+using HealthMed.Application.DTOs;
+using HealthMed.Domain.Entities;
 using HealthMed.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -12,15 +14,17 @@ namespace HealthMed.Application.UseCases.PacienteUseCase
     {
 
         private readonly IPacienteRepository _pacienteRepository;
+        private readonly IMapper _mapper;
 
-        public ObterPacientePorIdUseCase(IPacienteRepository pacienteRepository)
+        public ObterPacientePorIdUseCase(IPacienteRepository pacienteRepository, IMapper mapper)
         {
             _pacienteRepository = pacienteRepository;
+            _mapper = mapper;
         }
 
-        public async Task<Paciente?> Execute(Guid id)
+        public async Task<PacienteDTO?> Execute(Guid id)
         {
-            Paciente? paciente = await _pacienteRepository.ObterPorId(id);
+            PacienteDTO? paciente = _mapper.Map<PacienteDTO>(await _pacienteRepository.ObterComConsultaPorId(id));
 
             return paciente;
         }

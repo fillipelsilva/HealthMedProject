@@ -68,23 +68,9 @@ namespace Health.Api.Controllers
             {
                 return StatusCode(500, new { ErrorMessage = "Internal Server Error" });
             }
-        }     
-
-        [HttpDelete("RemoverMedico/{id}")]
-        public async Task<IActionResult> RemoverMedico(Guid id, [FromServices] RemoverMedicoUseCase removerMedicoUseCase)
-        {
-            try
-            {
-                await removerMedicoUseCase.Execute(id);
-                return Ok("Médico removido com sucesso!");
-            }
-            catch
-            {
-                return StatusCode(500, new { ErrorMessage = "Internal Server Error" });
-            }
         }
 
-           [HttpPost("authenticate"), AllowAnonymous]
+        [HttpPost("authenticate"), AllowAnonymous]
         public async Task<IActionResult> Authenticate([FromBody] AutenticarPacienteDTO autenticarPacienteDto, [FromServices] AutenticarPacienteUseCase autenticarPacienteUseCase)
         {
             try

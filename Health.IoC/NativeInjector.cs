@@ -2,6 +2,7 @@
 using HealthMed.Application.UseCases.AgendaDiaUseCase;
 using HealthMed.Application.UseCases.AgendaUseCase;
 using HealthMed.Application.UseCases.ConsultaUseCase;
+using HealthMed.Application.UseCases.HorarioConsultaUseCase;
 using HealthMed.Application.UseCases.MedicoUseCase;
 using HealthMed.Application.UseCases.PacienteUseCase;
 using HealthMed.Domain.Repositories;
@@ -20,6 +21,10 @@ namespace Health.IoC
             service.AddScoped<ObterAgendaPorMedicoIdUseCase>();
             service.AddScoped<AtualizarMedicoUseCase>();
             service.AddScoped<RemoverMedicoUseCase>();
+            service.AddScoped<RemoverAgendaUseCase>();
+            service.AddScoped<ObterHorarioConsultaPorIdUseCase>();
+            service.AddScoped<AutenticarMedicoUseCase>();
+            service.AddScoped<ObterAgendaPorIdUseCase>();
             service.AddScoped<ObterMedicoPorIdUseCase>();
             service.AddScoped<ObterConsultaPorIdUseCase>();
             service.AddScoped<ObterTodosMedicosUseCase>();
@@ -27,7 +32,9 @@ namespace Health.IoC
             service.AddScoped<AdicionarPacienteUseCase>();
             service.AddScoped<AtualizarPacienteUseCase>();
             service.AddScoped<RemoverPacienteUseCase>();
+            service.AddScoped<RemoverHorarioConsultaUseCase>();
             service.AddScoped<ObterAgendaDiaPorIdUseCase>();
+            service.AddScoped<AdicionarHorarioConsultaUseCase>();
             service.AddScoped<ObterPacientePorIdUseCase>();
             service.AddScoped<IMessagingService, MessagingService>();
             #endregion

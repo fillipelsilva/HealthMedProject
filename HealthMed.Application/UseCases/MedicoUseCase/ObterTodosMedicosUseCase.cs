@@ -1,4 +1,6 @@
-﻿using HealthMed.Domain.Entities;
+﻿using AutoMapper;
+using HealthMed.Application.DTOs;
+using HealthMed.Domain.Entities;
 using HealthMed.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,15 +13,17 @@ namespace HealthMed.Application.UseCases.MedicoUseCase
     public class ObterTodosMedicosUseCase
     {
         private readonly IMedicoRepository _medicoRepository;
+        private readonly IMapper _mapper;
 
-        public ObterTodosMedicosUseCase(IMedicoRepository medicoRepository)
+        public ObterTodosMedicosUseCase(IMedicoRepository medicoRepository, IMapper mapper)
         {
             _medicoRepository = medicoRepository;
+            _mapper = mapper;
         }
 
-        public async Task<List<Medico?>> Execute()
+        public async Task<List<MedicoDTO?>> Execute()
         {
-            List<Medico> medicos = await _medicoRepository.ObterTodos();
+            List<MedicoDTO> medicos = _mapper.Map<List<MedicoDTO>>(await _medicoRepository.ObterTodosMedicosComAgenda());
             return medicos!;
         }
     }

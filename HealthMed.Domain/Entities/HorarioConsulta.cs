@@ -20,5 +20,10 @@ namespace HealthMed.Domain.Entities
         {
             return $"{Horario} - {(Disponivel ? "Disponível" : "Indisponível")}";
         }
+
+        public void DefinirDia(AgendaDia diaConsulta)
+        {
+            AgendaDia = diaConsulta;
+        }
     }
 }

@@ -16,6 +16,15 @@ namespace HealthMed.Infraestructure.Repositories
         {
         }
 
+        public async Task<Agenda> ObterComDiasPorId(Guid id)
+        {
+            return _context.Agendas
+                .Include(a => a.Dias)
+                .ThenInclude(d => d.Horarios.Where(x => x.Disponivel))
+                .Where(a => a.Id == id)
+                .FirstOrDefault();
+        }
+
         public async Task<List<Agenda>?> ObterPorMedicoId(Guid medicoId)
         {
             return _context.Agendas

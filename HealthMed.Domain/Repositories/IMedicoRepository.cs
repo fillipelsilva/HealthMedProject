@@ -9,5 +9,6 @@ namespace HealthMed.Domain.Repositories
 {
     public interface IMedicoRepository : IRepository<Medico>
     {
+        Task<List<Medico>> ObterTodosMedicosComAgenda();
     }
 }
