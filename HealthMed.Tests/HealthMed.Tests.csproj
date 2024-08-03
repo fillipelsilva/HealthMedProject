@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HealthMedProject\HealthMed.Domain\HealthMed.Domain.csproj" />
+    <ProjectReference Include="..\HealthMed.Domain\HealthMed.Domain.csproj" />
   </ItemGroup>
 
 </Project>
