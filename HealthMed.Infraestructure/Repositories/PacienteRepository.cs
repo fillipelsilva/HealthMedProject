@@ -20,5 +20,10 @@ namespace HealthMed.Infraestructure.Repositories
         {
             return _context.Pacientes.Include(x => x.Consultas).Where(x => x.Id == id).FirstOrDefault();
         }
+
+        public async Task<Paciente> ObterPorIdComConsulta(Guid pacienteId)
+        {
+            return _context.Pacientes.Include(x => x.Consultas).ThenInclude(x => x.AgendaDia).Where(x => x.Id == pacienteId).FirstOrDefault();
+        }
     }
 }

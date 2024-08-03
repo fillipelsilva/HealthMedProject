@@ -6,28 +6,33 @@ using HealthMed.Infraestructure.Repositories;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 
-var builder = Host.CreateApplicationBuilder(args);
-builder.Services.AddHostedService<Worker>();
-
-var configuration = builder.Configuration;
-var conexao = configuration.GetSection("MassTransitAzure")["Conexao"] ?? string.Empty;
-var nomeFila = configuration.GetSection("MassTransitAzure")["NomeFila"] ?? string.Empty;
-
-builder.Services.AddMassTransit(x =>
-{
-    x.UsingAzureServiceBus((context, cfg) =>
+IHost host = Host.CreateDefaultBuilder(args)
+    .ConfigureServices((hostContext, services) =>
     {
-        cfg.Host(conexao);
 
-        cfg.ReceiveEndpoint(nomeFila, e =>
+        var configuration = hostContext.Configuration;
+
+        var conexao = configuration.GetSection("MassTransitAzure")["Conexao"] ?? string.Empty;
+        var nomeFila = configuration.GetSection("MassTransitAzure")["NomeFila"] ?? string.Empty;
+
+        services.AddHostedService<Worker>();
+        services.AddSingleton<HttpClient>();
+
+        services.AddMassTransit(x =>
         {
-            e.Consumer<ConsultaConsumer>(context);
+            x.UsingAzureServiceBus((context, cfg) =>
+            {
+                cfg.Host(conexao);
+
+                cfg.ReceiveEndpoint(nomeFila, e =>
+                {
+                    e.Consumer<ConsultaConsumer>(context);
+                });
+
+                cfg.ConfigureEndpoints(context);
+            });
+
+            x.AddConsumer<ConsultaConsumer>();
         });
-    });
-});
-
-builder.Services.AddScoped<IConsultaRepository, ConsultaRepository>();
-builder.Services.AddDbContext<AppDbContext>();
-
-var host = builder.Build();
+    }).Build();
 host.Run();

@@ -40,6 +40,7 @@ namespace Health.IoC
             service.AddScoped<IMessagingService, MessagingService>();
             #endregion
             #region Repositories
+            service.AddSingleton<HttpClient>();
             service.AddScoped<IPacienteRepository, PacienteRepository>();
             service.AddScoped<IMedicoRepository, MedicoRepository>();
             service.AddScoped<IConsultaRepository, ConsultaRepository>();

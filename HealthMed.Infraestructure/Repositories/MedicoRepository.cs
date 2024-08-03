@@ -16,6 +16,11 @@ namespace HealthMed.Infraestructure.Repositories
         {
         }
 
+        public async Task<Medico> ObterPorIdComConsulta(Guid medicoId)
+        {
+           throw new NotImplementedException();
+        }
+
         public async Task<List<Medico>> ObterTodosMedicosComAgenda()
         {
             return _context.Medicos

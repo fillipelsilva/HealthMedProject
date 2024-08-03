@@ -42,6 +42,7 @@ namespace Health.Api.Controllers
             }
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpPost("EfetivarConsulta")]
         public async Task<IActionResult> EfetivarConsulta([FromBody] CriacaoConsultaDTO consulta, [FromServices] EfetivarConsultaUseCase marcarConsultaUseCase)
         {

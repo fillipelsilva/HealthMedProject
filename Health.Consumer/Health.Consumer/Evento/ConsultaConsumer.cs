@@ -12,12 +12,10 @@ using System.Threading.Tasks;
 namespace Health.Consumer.Evento;
 public class ConsultaConsumer : IConsumer<Consulta>
 {
-    private readonly IConsultaRepository _consultaRepository;
     private readonly HttpClient _httpClient;
 
-    public ConsultaConsumer(IConsultaRepository consultaRepository, HttpClient httpClient)
+    public ConsultaConsumer(HttpClient httpClient)
     {
-        _consultaRepository = consultaRepository;
         _httpClient = httpClient;
     }
 
@@ -25,7 +23,7 @@ public class ConsultaConsumer : IConsumer<Consulta>
     {
         var ctx = new AppDbContext();
 
-        var consulta = _consultaRepository.Find(x => x.MedicoId == context.Message.MedicoId && x.Horario == context.Message.Horario);
+        //var consulta = _consultaRepository.Find(x => x.MedicoId == context.Message.MedicoId && x.Horario == context.Message.Horario);
 
         var apiUrl = "https://localhost:7033/api/Consulta/EfetivarConsulta";
         string json = JsonConvert.SerializeObject(context.Message);
