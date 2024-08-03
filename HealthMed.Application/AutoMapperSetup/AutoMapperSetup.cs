@@ -25,6 +25,7 @@ namespace HealthMed.Application.AutoMapperSetup
             CreateMap<MedicoDTO, Medico>();
             CreateMap<ConsultaDTO, Consulta>();
             CreateMap<PacienteConsultaDTO, Consulta>();
+            CreateMap<CriacaoHorarioConsultaDTO, HorarioConsulta>();
 
             #endregion
 
@@ -39,6 +40,7 @@ namespace HealthMed.Application.AutoMapperSetup
             CreateMap<Paciente, PacienteDTO>();
             CreateMap<Medico, MedicoDTO>();
             CreateMap<Consulta, PacienteConsultaDTO>();
+            CreateMap<HorarioConsulta, CriacaoHorarioConsultaDTO>();
             CreateMap<Consulta, ConsultaDTO>()
                 .ForMember(c => c.Data, opt => opt.MapFrom(x => x.AgendaDia.Data));
 
