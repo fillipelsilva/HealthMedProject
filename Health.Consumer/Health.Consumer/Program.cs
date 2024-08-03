@@ -1,5 +1,8 @@
 using Health.Consumer;
 using Health.Consumer.Evento;
+using HealthMed.Domain.Repositories;
+using HealthMed.Infraestructure.Data;
+using HealthMed.Infraestructure.Repositories;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 
@@ -18,11 +21,13 @@ builder.Services.AddMassTransit(x =>
 
         cfg.ReceiveEndpoint(nomeFila, e =>
         {
-            e.Consumer<ConsultaConsumer>();
+            e.Consumer<ConsultaConsumer>(context);
         });
     });
 });
 
+builder.Services.AddScoped<IConsultaRepository, ConsultaRepository>();
+builder.Services.AddDbContext<AppDbContext>();
 
 var host = builder.Build();
 host.Run();
